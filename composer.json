@@ -1,0 +1,18 @@
+{
+    "name": "ren-sg/task-manager",
+    "description": "test task manger for beejee",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Renal Sunagatullin",
+            "email": "ren-sg@yandex.ru"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+             "Core\\": "Core/",
+             "App\\": "App/"
+        }
+    }
+}

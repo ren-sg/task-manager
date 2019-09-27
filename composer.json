@@ -8,7 +8,9 @@
             "email": "ren-sg@yandex.ru"
         }
     ],
-    "require": {},
+    "require": {
+        "twig/twig": "^2.11"
+    },
     "autoload": {
         "psr-4": {
              "Core\\": "Core/",

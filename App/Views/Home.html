@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block body %}
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col"><a href="?sort=user&dir={{sort_dir}}">Username</a></th>
+            <th scope="col"><a href="?sort=email&dir={{sort_dir}}">Email</a></th>
+            <th scope="col">Task</th>
+            <th scope="col"><a href="?sort=status&dir={{sort_dir}}">Checked</a></th>
+            {% if user.username == 'admin' %}
+            <th scope="col">Edit</th>
+            {% endif %}
+        </tr>
+    </thead>
+    <tbody>
+        {%for task in tasks %}
+        <tr>
+            <th scope="row">{{task.id}}</th>
+            <td>{{task.user}}</td>
+            <td>{{task.email}}</td>
+            <td>{{task.text}}</td>
+            <td>
+                {% if task.status == 'Y' %}
+                <span class="badge badge-primary">Checked</span>
+                {% else %}
+                <span class="badge badge-secondary">Unchecked</span>
+                {%endif%}
+            </td>
+            {% if user.username == 'admin' %}
+            <td>
+                <a class="btn btn-primary btn-sm" href="/edit?id={{task.id}}">Edit</a>
+            </td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+        {% if pager.prev %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{pager.prev}}{% if pager.query_string %}&{{ pager.query_string }}{% endif %}">Previous</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <a class="page-link" href="#">Previous</a>
+        </li>
+        {% endif %}
+        {% for page in 1..pager.pages %}
+        <li class="page-item {% if page == pager.current %}active {% endif %}">
+            <a class="page-link" href="?page={{page}}{%if pager.query_string %}&{{pager.query_string}}{% endif %}">{{page}}</a>
+        </li>
+        {% endfor %}
+        {% if pager.next %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{pager.next}}{% if pager.query_string %}&{{ pager.query_string }}{% endif %}">Next</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <a class="page-link" href="#">Next</a>
+        </li>
+        {% endif %}
+
+    </ul>
+</nav>
+{% endblock %}
